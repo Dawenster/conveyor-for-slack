@@ -1,8 +1,9 @@
 # a separate file for all the slack message block kit blocks
 # this shit just gets long and i don't wanna crowd the main app file
 
-import aptible_bot
+import conveyor_bot
 from datetime import datetime
+
 
 def create_queue(reqs):
     # create a whole bunch of properly formatted blocks for new requests
@@ -11,7 +12,7 @@ def create_queue(reqs):
     queue_blocks = []
 
     for i in range(0, len(reqs)):
-        req_block =[
+        req_block = [
             {
                 "type": "header",
                 "text": {
@@ -51,7 +52,7 @@ def create_queue(reqs):
                 "type": "input",
                 "element": {
                     "type": "checkboxes",
-                     "options": aptible_bot.get_perms(),
+                    "options": conveyor_bot.get_perms(),
                     "action_id": "perms"
                 },
                 "label": {
