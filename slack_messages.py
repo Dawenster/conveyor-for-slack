@@ -91,6 +91,7 @@ def create_queue(reqs):
 
 def update_request(requester, user_id, status, note="N/A"):
     # create a block that updates the original request message to show status
+    past_tense_status = status if status == 'approved' else "{status}ed"
 
     approved_time = datetime.now()
     stamp = approved_time.strftime("%B %d, %Y, %I:%M %p")
@@ -106,7 +107,7 @@ def update_request(requester, user_id, status, note="N/A"):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": f"Request from {requester} {status}ed by <@{user_id}> at {stamp}."
+                "text": f"Request {requester} {past_tense_status} by <@{user_id}> at {stamp}."
             }
         },
         {

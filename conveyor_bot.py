@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 apt_key = os.getenv('CONVEYOR_KEY')
 apt_url = 'https://api.conveyorhq.com/api/v2/exchange/'
+if os.getenv('LOCAL_DEV') == 'True':
+    apt_url = 'http://localhost:4007/api/v2/exchange/'
 apt_head = {'X-API-KEY': apt_key, 'Accept': 'application/json',
             'Content-Type': 'application/json'}
 
@@ -90,6 +92,7 @@ def approve_requests(request_id, email, addtl_perms):
 
 def reject_requests(request_id, email, note):
     # reject a request, mwahaha
+    breakpoint()
 
     payload = {'status': 'ignored',
                'reviewer_email': email}
