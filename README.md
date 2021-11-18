@@ -24,15 +24,25 @@ Once the request has been processed and a 200 has been received from Conveyor, t
 
 ### To get this up and running,
 
-you will need to:
+You will need to:
 
-- get your Conveyor API key from your integrations menu
-- create a Slack app to install this to on your workspace in your Slack API apge
-- get your Slack signing secret and bot token from the API page
-- get your channel ID for where you want your app to post
-- set up a server either locally or in your infra
-- assign that URL to your Slack app in the interactions page
-- update the .env file with your assorted secrets
+- Get your Conveyor API key ([docs](https://docs.conveyor.com/reference/api-token))
+- Create a Slack app to install this to on your workspace in your Slack API page ([docs](https://slack.dev/bolt-python/tutorial/getting-started-http#create-an-app))
+- Go to your Slack app's "OAuth & Permissions" page and add the following Bot Token Scopes: `channels:history`, `chat:write`, `chat:write.customize`, `users:read`, `users:read.email`
+- Get your Slack signing secret and bot token from the API page ([docs](https://slack.dev/bolt-python/tutorial/getting-started-http#tokens-and-installing-apps)) - you might need to have your admin install the app to your workspace first
+- After you install the app, make sure to invite the app bot to the channel
+- Get your channel ID for where you want your app to post (note: channel ID, not channel name)
+- Set up a server either locally or in your infra
+- Assign that server's URL on your Slack app's "Interactivity & Shortcuts" page, adding `/slack/events` to the end
+- Add a `.env` file with the following env variables:
+
+```
+CONVEYOR_KEY='foo'
+SLACK_BOT_TOKEN='xoxb-foo'
+SLACK_SIGNING_SECRET='bar'
+SLACK_CHANNEL_ID='CFOO'
+PORT=8080 # Optional
+```
 
 From there, you can pretty much start the up and be good to go. For my deployment at my company, mine is in a Docker container on Nomad, with Consul and some other fun frippery providing commuication with the outside world. So everything is orchestrated and all needed aspects are launched in the Dockerfile.
 
