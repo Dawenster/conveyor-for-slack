@@ -191,4 +191,8 @@ if __name__ == "__main__":
     monitor = threading.Thread(target=monitor_the_queue)
     monitor.start()
     logging.info("Main    : starting Bolt app")
-    app.start(port=int(os.environ.get("PORT", 8080)))
+    try:
+        app.start(port=int(os.environ.get("PORT", 8080)))
+    except Exception:
+        logging.error(
+            "App could not start - likely need to set env variables correctly")
