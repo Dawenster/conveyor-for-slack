@@ -42,9 +42,11 @@ def handle_approval(ack, body, client, say):
     user_id = body['user']['id']
     get_email = client.users_info(user=body['user']['id'])
     user_email = get_email['user']['profile']['email']
-    approve_it = conveyor_bot.approve_requests(request_id, user_email, addtl_perms)
+    approve_it = conveyor_bot.approve_requests(
+        request_id, user_email, addtl_perms)
     if approve_it == 'yay':
-        update_request_screen(body['container']['message_ts'], requester, user_id, 'approved', client)
+        update_request_screen(
+            body['container']['message_ts'], requester, user_id, 'approved', client)
     else:
         logger.info(approve_it)
         try:
@@ -67,7 +69,8 @@ def handle_rejection(ack, body, client):
     get_email = client.users_info(user=body['user']['id'])
     user_email = get_email['user']['profile']['email']
     requester = body['message']['blocks'][2]['text']['text']
-    get_feedback(body['container']['message_ts'], body['trigger_id'], requester, user_id, user_email, request_id, client)
+    get_feedback(body['container']['message_ts'], body['trigger_id'],
+                 requester, user_id, user_email, request_id, client)
 
 
 @app.action("perms")
@@ -87,11 +90,13 @@ def handle_view_events(ack, body, client, view):
     respond_close = {"response_action": "clear"}
     ack(respond_close)
     metadata = json.loads(view['private_metadata'])
-    note = view['state']['values'][list(view['state']['values'].keys())[0]]['feedback_input']['value']
+    note = view['state']['values'][list(view['state']['values'].keys())[
+        0]]['feedback_input']['value']
     user_id = metadata['user_id']
     requester = metadata['requester']
     ts = metadata['ts']
-    conveyor_bot.reject_requests(metadata['request_id'], metadata['user_email'], note)
+    conveyor_bot.reject_requests(
+        metadata['request_id'], metadata['user_email'], note)
     update_request_screen(ts, requester, user_id, 'rejected', client, note)
 
 
@@ -107,7 +112,8 @@ def get_feedback(origin_ts, trigger, requester, user_id, user_email, request_id,
     # get feedback from reviewer on why the rejection via modal
     # rejection should not be common, so we want to have info on why to respond to inquiries
 
-    data_str = json.dumps({"ts": origin_ts, "requester": requester, "user_id": user_id, "user_email": user_email, "request_id": request_id})
+    data_str = json.dumps({"ts": origin_ts, "requester": requester,
+                          "user_id": user_id, "user_email": user_email, "request_id": request_id})
     client.views_open(
         trigger_id=trigger,
         view={
@@ -117,10 +123,10 @@ def get_feedback(origin_ts, trigger, requester, user_id, user_email, request_id,
             "submit": {"type": "plain_text", "text": "Submit"},
             "blocks": [
                 {"type": "input",
-                "element": {"type": "plain_text_input", "action_id": "feedback_input", "multiline": True},
-                "label": {"type": "plain_text", "text": "Please explain the reason for rejecting this request:"},
-                "optional": False
-                }
+                 "element": {"type": "plain_text_input", "action_id": "feedback_input", "multiline": True},
+                 "label": {"type": "plain_text", "text": "Please explain the reason for rejecting this request:"},
+                 "optional": False
+                 }
             ],
             "notify_on_close": True,
             "private_metadata": data_str
@@ -136,7 +142,8 @@ def update_request_screen(ts, requester, user_id, status, client, note="N/A"):
         result = app.client.chat_update(
             channel=channel_id,
             ts=ts,
-            blocks=slack_messages.update_request(requester, user_id, status, note),
+            blocks=slack_messages.update_request(
+                requester, user_id, status, note),
             text="You have successfully approved this request."
         )
     except SlackApiError as e:
@@ -172,6 +179,7 @@ def monitor_the_queue():
 # setting up flask to provide safer happier friendly friend life
 flask_app = Flask(__name__)
 handler = SlackRequestHandler(app)
+
 
 @flask_app.route("/slack/events", methods=["POST"])
 def slack_events():
