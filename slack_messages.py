@@ -24,14 +24,14 @@ def create_queue(reqs):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "<" + reqs[i]['url'] + "|New access request from:>"
+                    "text": "New access request (<https://app.conveyor.com/requests?status=Needs+Attention|link>)"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "plain_text",
-                    "text": reqs[i]['from']
+                    "text": "From: " + reqs[i]['from']
                 }
             },
             {
