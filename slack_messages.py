@@ -67,7 +67,7 @@ def create_queue(reqs):
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": ":blob-checkmark: Approve Request"
+                            "text": ":white_check_mark: Approve Request"
                         },
                         "value": reqs[i]['id'],
                         "action_id": "approve"
@@ -76,7 +76,7 @@ def create_queue(reqs):
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": ":blob-x: Reject Request"
+                            "text": ":negative_squared_cross_mark: Reject Request"
                         },
                         "value": reqs[i]['id'],
                         "action_id": "reject"
