@@ -195,8 +195,9 @@ def slack_events():
 
 
 # start the app
-if __name__ == "__main__":
-    monitor = threading.Thread(target=monitor_the_queue)
-    monitor.start()
-    logging.info("Main    : starting Bolt app")
-    app.start(port=int(os.environ.get("PORT", 8080)))
+monitor = threading.Thread(target=monitor_the_queue)
+monitor.start()
+logging.info("Main    : starting Bolt app")
+# if __name__ == "__main__":
+# Uncomment for local dev running python3 app.py
+# app.start(port=int(os.environ.get("PORT", 8080)))

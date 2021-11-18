@@ -25,4 +25,4 @@ ADD . /app
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--access-logfile=-", "--error-logfile=-", "--bind=0.0.0.0:8000", "--workers=3", "app:flask_app"]
+CMD ["gunicorn", "--access-logfile=-", "--error-logfile=-", "--bind=0.0.0.0:8000", "--workers=1", "app:flask_app"]
