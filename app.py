@@ -11,11 +11,13 @@ from flask import Flask, request
 from dotenv import load_dotenv
 import conveyor_bot
 import slack_messages
+import sys
 
 load_dotenv()
 
 format = "%(asctime)s: %(message)s"
-logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
+logging.basicConfig(format=format, level=logging.INFO,
+                    datefmt="%H:%M:%S", stream=sys.stdout)
 logger = logging.getLogger(__name__)
 
 # initialize app with slack bot token and signing secret
