@@ -19,6 +19,12 @@ format = "%(asctime)s: %(message)s"
 logging.basicConfig(format=format, level=logging.INFO,
                     datefmt="%H:%M:%S", stream=sys.stdout)
 logger = logging.getLogger(__name__)
+logger_handler = logging.StreamHandler(sys.stdout)
+logger_handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger_handler.setFormatter(formatter)
+logger.addHandler(logger_handler)
 
 # initialize app with slack bot token and signing secret
 app = App(
