@@ -92,8 +92,6 @@ def approve_requests(request_id, email, addtl_perms):
 
 def reject_requests(request_id, email, note):
     # reject a request, mwahaha
-    breakpoint()
-
     payload = {'status': 'ignored',
                'reviewer_email': email}
     do_rejection = requests.patch(
