@@ -42,6 +42,7 @@ SLACK_BOT_TOKEN='xoxb-foo'
 SLACK_SIGNING_SECRET='bar'
 SLACK_CHANNEL_ID='CFOO'
 PORT=8080 # Optional
+LOCAL_DEV=True # Optional - only set for local development
 ```
 
 From there, you can pretty much start the up and be good to go. For my deployment at my company, mine is in a Docker container on Nomad, with Consul and some other fun frippery providing commuication with the outside world. So everything is orchestrated and all needed aspects are launched in the Dockerfile.
