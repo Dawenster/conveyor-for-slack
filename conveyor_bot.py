@@ -84,9 +84,10 @@ def approve_requests(request_id, email, addtl_perms):
         update_request_info(request_id, email, 'approved')
         return('yay')
     else:
-        error_msg = 'Error encountered while attempting to approve this request. Error code received is ' + \
-            str(do_approval.status_code) + \
-            '. Please contact bot owner for help.'
+        result = do_approval.json()
+        error_msg = 'Error encountered while attempting to approve this request. Error is '
+        error_msg += f"{str(do_approval.status_code)}: {result['error']}"
+        error_msg += '. Please contact bot owner for help.'
         return error_msg
 
 
@@ -100,9 +101,10 @@ def reject_requests(request_id, email, note):
         update_request_info(request_id, email, 'rejected', note)
         return('yay')
     else:
-        error_msg = 'Error encountered while attempting to reject this request. Error code received is ' + \
-            str(do_rejection.status_code) + \
-            '. Please contact bot owner for help.'
+        result = do_rejection.json()
+        error_msg = 'Error encountered while attempting to reject this request. Error is '
+        error_msg += f"{str(do_rejection.status_code)}: {result['error']}"
+        error_msg += '. Please contact bot owner for help.'
         return error_msg
 
 
