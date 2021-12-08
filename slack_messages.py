@@ -45,7 +45,7 @@ def create_queue(reqs):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Message: " + reqs[i]['message']
+                    "text": "Message: " + (reqs[i]['message'] or '(None)')
                 }
             },
             {
