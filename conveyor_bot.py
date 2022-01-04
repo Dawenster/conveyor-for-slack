@@ -28,9 +28,9 @@ def pending_request_check():
     queue_info = []
     # pull the current queue and compare against known requests
     # remove repeat requests and return new requests
-
+    payload = { 'status': 'requested' }
     request_queue = requests.get(
-        apt_url + 'authorization_request_queue', headers=apt_head)
+        apt_url + 'authorization_requests', headers=apt_head, json=payload)
     if request_queue.status_code == 200:
         queue_blob = request_queue.json()
         queue_info = queue_blob['authorization_requests']
